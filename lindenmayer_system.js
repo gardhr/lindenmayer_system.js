@@ -3,21 +3,17 @@ function lindenmayer_system(args) {
     return new lindenmayer_system(args);
   return this.ctor(args);
 }
-
 (function() {
   function is_string(value) {
     return typeof value == "string";
   }
-
   function to_number(value) {
     return value.charCodeAt(0);
   }
-
   function normalize(value) {
     if (is_string(value)) return to_number(value);
     return value;
   }
-
   function expand(values) {
     if (is_string(values)) {
       values = values.split("");
@@ -26,7 +22,6 @@ function lindenmayer_system(args) {
     } else if (!rule.isArray(values)) values = [values];
     return values;
   }
-
   lindenmayer_system.prototype.ctor = function(args) {
     this.textual = is_string(args.axiom);
     this.input = [];
@@ -43,7 +38,6 @@ function lindenmayer_system(args) {
     }
     return this;
   };
-
   lindenmayer_system.prototype.advance = function() {
     if (++this.output_index >= this.output.length) {
       if (this.input_index == this.input.length) {
@@ -66,13 +60,11 @@ function lindenmayer_system(args) {
     }
     return this;
   };
-
   lindenmayer_system.prototype.next = function() {
     var result = this.peek();
     this.advance();
     return result;
   };
-
   lindenmayer_system.prototype.peek = function() {
     var result = this.output[this.output_index];
     if (result && this.textual) result = String.fromCharCode(result);
