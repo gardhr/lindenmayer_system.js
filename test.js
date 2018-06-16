@@ -1,4 +1,3 @@
-var log = console.log;
 try {
   var lindenmayer_system = require("./lindenmayer_system");
   var algae = { axiom: "A", rules: [["A", "AB"], ["B", "A"]] };
@@ -6,5 +5,5 @@ try {
   var delay = 50;
   setInterval(function(){process.stdout.write(generator.next())}, delay);
 } catch (error) {
-  log("Error:", error);
+  console.log("Error:", error);
 }
