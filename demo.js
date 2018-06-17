@@ -17,7 +17,7 @@ function demo() {
     if (next == "L") rotate(90);
     else if (next == "R") rotate(-90);
     else if (next == "D") {
-      var span = 3;
+      var span = 7;
       context.beginPath();
       context.moveTo(0, 0);
       context.lineTo(0, span);
@@ -25,5 +25,5 @@ function demo() {
       context.translate(0, span);
     }
   }
-  setInterval(loop, 1);
+  setInterval(loop, 0);
 }
