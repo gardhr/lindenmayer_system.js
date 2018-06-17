@@ -1,7 +1,10 @@
 try {
   var lindenmayer_system = require("./lindenmayer_system");
-  var algae = { axiom: "A", rules: [["A", "AB"], ["B", "A"]] };
-  var generator = lindenmayer_system(algae);
+  var hilbert_curve = {
+    axiom: "A",
+    rules: [["A", "-BF+AFA+FB-"], ["B", "+AF-BFB-FA+"]]
+  };
+  var generator = lindenmayer_system(hilbert_curve);
   var delay = 50;
   setInterval(function() {
     process.stdout.write(generator.next());

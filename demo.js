@@ -17,7 +17,7 @@ function demo() {
     if (next == "L") rotate(90);
     else if (next == "R") rotate(-90);
     else if (next == "D") {
-      var span = 7;
+      var span = 10;
       context.beginPath();
       context.moveTo(0, 0);
       context.lineTo(0, span);

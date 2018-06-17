@@ -20,7 +20,7 @@ function lindenmayer_system(args) {
       values = values.split("");
       for (var index = 0; index < values.length; ++index)
         values[index] = to_number(values[index]);
-    } else if (!rule.isArray(values)) values = [values];
+    } else if (!Array.isArray(values)) values = [values];
     return values;
   }
   lindenmayer_system.prototype.ctor = function(args) {
