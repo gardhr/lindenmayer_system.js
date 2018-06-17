@@ -68,7 +68,7 @@ function lindenmayer_system(args) {
   };
   lindenmayer_system.prototype.peek = function() {
     var result = this.output[this.output_index];
-    if (result && this.textual) result = String.fromCharCode(result);
+    if (result != null && this.textual) result = String.fromCharCode(result);
     return result;
   };
 })();
