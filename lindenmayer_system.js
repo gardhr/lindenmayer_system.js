@@ -1,3 +1,4 @@
+"use strict";
 function lindenmayer_system(args) {
   if (!(this instanceof lindenmayer_system))
     return new lindenmayer_system(args);
