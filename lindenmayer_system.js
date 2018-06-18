@@ -52,7 +52,13 @@ function lindenmayer_system(args) {
       for (var index = 0; index < this.rules.length; ++index) {
         var rule = this.rules[index];
         if (before == rule.before) {
-          this.output = this.output.concat(rule.after);
+          var after = rule.after;
+          var flattened = [];
+          for (var counter = 0; counter < after.length; ++counter) {
+            var data = after[counter];
+            flattened.push(typeof data == "function" ? data(before) : data);
+          }
+          this.output = this.output.concat(flattened);
           empty = false;
           break;
         }
