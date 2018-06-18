@@ -1,6 +1,7 @@
 # lindenmayer_system.js
 
-A simple Lindenmayer System (L-System) generator
+
+Efficient Lindenmayer System (L-System) generator for javascript
 
 
 ![dragon curve](dragon.png?raw=true)
