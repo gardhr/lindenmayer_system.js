@@ -10,7 +10,11 @@ function demo() {
   context.strokeStyle = "green";
   context.translate(canvas.width / 2, canvas.height / 2);
   rotate(Math.random() * 360);
-  var dragon_curve = { axiom: "DX", rules: [["X", "XRYDR"], ["Y", "LDXLY"]] };
+  var dragon_curve = {
+    axiom: "DX",
+    rules: [{ before: "X", after: "XRYDR" }, { before: "Y", after: "LDXLY" }]
+  };
+
   var generator = lindenmayer_system(dragon_curve);
   function loop() {
     var next = generator.next();

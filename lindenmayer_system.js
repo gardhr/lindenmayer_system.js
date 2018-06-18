@@ -31,10 +31,10 @@ function lindenmayer_system(args) {
     this.rules = [];
     var rules = args.rules;
     for (var index = 0; index < rules.length; ++index) {
-      var packed = rules[index];
+      var rule = rules[index];
       this.rules.push({
-        before: normalize(packed[0]),
-        after: expand(packed[1])
+        before: normalize(rule.before),
+        after: expand(rule.after)
       });
     }
     return this;

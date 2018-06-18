@@ -8,8 +8,14 @@ try {
   var hilbert_curve = {
     axiom: A,
     rules: [
-      [A, [left, B, draw, right, A, draw, A, right, draw, B, left]],
-      [B, [right, A, draw, left, B, draw, B, left, draw, A, right]]
+      {
+        before: A,
+        after: [left, B, draw, right, A, draw, A, right, draw, B, left]
+      },
+      {
+        before: B,
+        after: [right, A, draw, left, B, draw, B, left, draw, A, right]
+      }
     ]
   };
   var generator = lindenmayer_system(hilbert_curve);

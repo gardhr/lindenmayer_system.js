@@ -2,7 +2,10 @@ try {
   var lindenmayer_system = require("./lindenmayer_system");
   var hilbert_curve = {
     axiom: "A",
-    rules: [["A", "-BF+AFA+FB-"], ["B", "+AF-BFB-FA+"]]
+    rules: [
+      { before: "A", after: "-BF+AFA+FB-" },
+      { before: "B", after: "+AF-BFB-FA+" }
+    ]
   };
   var generator = lindenmayer_system(hilbert_curve);
   var delay = 50;
