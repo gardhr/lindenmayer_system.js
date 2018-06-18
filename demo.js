@@ -14,7 +14,6 @@ function demo() {
     axiom: "DX",
     rules: [{ before: "X", after: "XRYDR" }, { before: "Y", after: "LDXLY" }]
   };
-
   var generator = lindenmayer_system(dragon_curve);
   function loop() {
     var next = generator.next();
