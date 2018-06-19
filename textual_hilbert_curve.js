@@ -13,6 +13,5 @@ try {
     process.stdout.write(generator.next());
   }, delay);
 } catch (error) {
-	var j;
   console.log("Error:", error);
 }
