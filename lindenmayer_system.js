@@ -1,10 +1,5 @@
 "use strict";
 function lindenmayer_system(args) {
-  if (!(this instanceof lindenmayer_system))
-    return new lindenmayer_system(args);
-  return this.ctor(args);
-}
-(function() {
   function is_string(value) {
     return typeof value == "string";
   }
@@ -24,34 +19,32 @@ function lindenmayer_system(args) {
     else values = values.slice();
     return values;
   }
-  lindenmayer_system.prototype.ctor = function(args) {
-    this.textual = is_string(args.axiom);
-    this.input = [];
-    this.output = expand(args.axiom);
-    this.input_index = this.output_index = 0;
-    this.rules = [];
-    var rules = args.rules;
-    for (var index = 0; index < rules.length; ++index) {
-      var rule = rules[index];
-      this.rules.push({
-        before: normalize(rule.before),
-        after: expand(rule.after)
-      });
-    }
-    return this;
-  };
-  lindenmayer_system.prototype.advance = function() {
-    if (++this.output_index >= this.output.length) {
-      if (this.input_index == this.input.length) {
-        this.input = this.output;
-        this.input_index = 0;
-        this.output = [];
-        this.output_index = 0;
+  var that = {};
+  var textual = is_string(args.axiom);
+  var input = [];
+  var output = expand(args.axiom);
+  var input_index = 0;
+  var output_index = 0;
+  var rules = [];
+  for (var index = 0; index < args.rules.length; ++index) {
+    var rule = args.rules[index];
+    rules.push({
+      before: normalize(rule.before),
+      after: expand(rule.after)
+    });
+  }
+  var advance = (that.advance = function() {
+    if (++output_index >= output.length) {
+      if (input_index == input.length) {
+        input = output;
+        input_index = 0;
+        output = [];
+        output_index = 0;
       }
       var empty = true;
-      var before = this.input[this.input_index++];
-      for (var index = 0; index < this.rules.length; ++index) {
-        var rule = this.rules[index];
+      var before = input[input_index++];
+      for (var index = 0; index < rules.length; ++index) {
+        var rule = rules[index];
         if (before == rule.before) {
           var after = rule.after;
           var flattened = [];
@@ -59,25 +52,25 @@ function lindenmayer_system(args) {
             var data = after[counter];
             flattened.push(typeof data == "function" ? data(before) : data);
           }
-          this.output = this.output.concat(flattened);
+          output = output.concat(flattened);
           empty = false;
           break;
         }
       }
-      if (empty) this.output = this.output.concat([before]);
+      if (empty) output = output.concat([before]);
     }
-    return this;
-  };
-  lindenmayer_system.prototype.next = function() {
-    var result = this.peek();
-    this.advance();
+    return that;
+  });
+  var next = (that.next = function() {
+    var result = peek();
+    advance();
     return result;
-  };
-  lindenmayer_system.prototype.peek = function() {
-    var result = this.output[this.output_index];
-    if (result != null && this.textual) result = String.fromCharCode(result);
+  });
+  var peek = (that.peek = function() {
+    var result = output[output_index];
+    if (result != null && textual) result = String.fromCharCode(result);
     return result;
-  };
-})();
-if (typeof exports !== "undefined") exports = lindenmayer_system;
+  });
+  return that;
+}
 if (typeof module !== "undefined") module.exports = lindenmayer_system;
