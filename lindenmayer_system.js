@@ -21,6 +21,7 @@ function lindenmayer_system(args) {
       for (var index = 0; index < values.length; ++index)
         values[index] = to_number(values[index]);
     } else if (!Array.isArray(values)) values = [values];
+    else values = values.slice();
     return values;
   }
   lindenmayer_system.prototype.ctor = function(args) {
