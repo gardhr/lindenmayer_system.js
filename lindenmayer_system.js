@@ -1,26 +1,13 @@
 "use strict";
 function lindenmayer_system(args) {
-  function is_string(value) {
-    return typeof value == "string";
-  }
-  function to_number(value) {
-    return value.charCodeAt(0);
-  }
-  function normalize(value) {
-    if (is_string(value)) return to_number(value);
-    return value;
-  }
   function expand(values) {
-    if (is_string(values)) {
+    if (typeof values == "string") {
       values = values.split("");
-      for (var index = 0; index < values.length; ++index)
-        values[index] = to_number(values[index]);
     } else if (!Array.isArray(values)) values = [values];
     else values = values.slice();
     return values;
   }
-  var that = {};
-  var textual = is_string(args.axiom);
+  var result = {};
   var input = [];
   var output = expand(args.axiom);
   var input_index = 0;
@@ -29,11 +16,11 @@ function lindenmayer_system(args) {
   for (var index = 0; index < args.rules.length; ++index) {
     var rule = args.rules[index];
     rules.push({
-      before: normalize(rule.before),
+      before: rule.before,
       after: expand(rule.after)
     });
   }
-  var advance = (that.advance = function() {
+  var advance = (result.advance = function() {
     if (++output_index >= output.length) {
       if (input_index == input.length) {
         input = output;
@@ -59,18 +46,16 @@ function lindenmayer_system(args) {
       }
       if (empty) output = output.concat([before]);
     }
-    return that;
+    return result;
   });
-  var next = (that.next = function() {
-    var result = peek();
+  var next = (result.next = function() {
+    var value = peek();
     advance();
-    return result;
+    return value;
   });
-  var peek = (that.peek = function() {
-    var result = output[output_index];
-    if (result != null && textual) result = String.fromCharCode(result);
-    return result;
+  var peek = (result.peek = function() {
+    return output[output_index];
   });
-  return that;
+  return result;
 }
 if (typeof module !== "undefined") module.exports = lindenmayer_system;
