@@ -17,8 +17,8 @@ function demo() {
   var generator = lindenmayer_system(dragon_curve);
   function loop() {
     var next = generator.next();
-    if (next == "L") rotate(90);
-    else if (next == "R") rotate(-90);
+    if (next == "L") rotate(-90);
+    else if (next == "R") rotate(90);
     else if (next == "D") {
       var span = 5;
       context.beginPath();
